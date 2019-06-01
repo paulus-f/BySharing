@@ -45,7 +45,7 @@ module Api
       end
 
       def bicycle_params
-        params.permit(:name, :price, :bike_type, :longitude, :latitude)
+        params.permit(:name, :price, :bike_type, :longitude, :latitude, :user_id)
       end
 
       def find_bicycle
