@@ -163,7 +163,16 @@ Devise.setup do |config|
   # Options to be passed to the created cookie. For instance, you can set
   # secure: true in order to force SSL only cookies.
   # config.rememberable_options = {}
-
+  config.jwt do |jwt|
+    jwt.secret = 'c6977142e3d968eb45a955b89b095f55cc8e2640e159682d6a49bfe3c0c2a937a6f4420a181e962dd0cb64233b93756ad34fd6dc8a311d2045b5c06bcbc828e6'
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
   # ==> Configuration for :validatable
   # Range for password length.
   config.password_length = 6..128
@@ -252,6 +261,7 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = []
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
