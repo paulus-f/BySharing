@@ -7,7 +7,7 @@ class AddRent < ActiveRecord::Migration[5.2]
       t.boolean :finished_tenant
       t.boolean :finished_owner
       t.references :user
-      t.references :bike
+      t.references :bicycle
       t.timestamps
     end
   end
