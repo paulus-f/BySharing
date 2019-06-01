@@ -166,10 +166,14 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = 'c6977142e3d968eb45a955b89b095f55cc8e2640e159682d6a49bfe3c0c2a937a6f4420a181e962dd0cb64233b93756ad34fd6dc8a311d2045b5c06bcbc828e6'
     jwt.dispatch_requests = [
-      ['POST', %r{^/login$}]
+        ['POST', %r{^/users/sign_in$}],
+        ['GET', %r{^/$}]
     ]
+    jwt.request_formats = { user: [:json] }
+    jwt.expiration_time = 8.hours.to_i
+    
     jwt.revocation_requests = [
-      ['DELETE', %r{^/logout$}]
+      ['DELETE', %r{^/sign_out$}]
     ]
     jwt.expiration_time = 1.day.to_i
   end
@@ -236,6 +240,10 @@ Devise.setup do |config|
   #
   # Require the `devise-encryptable` gem when using anything other than bcrypt
   # config.encryptor = :sha512
+
+  config.warden do |config|
+    config.default_strategies(:scope => :user).unshift :jwt
+  end
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for

@@ -4,12 +4,12 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    user_params = params.permit(:email, :password).to_h
-    self.resource = warden.authenticate!(user_params.merge!(scope: :user))
-    set_flash_message(:notice, :signed_in) if is_flashing_format?
-    sign_in(resource_name, resource)
-    respond_with(resource) do |format|
-      format.json { render json: { redirect_url: after_sign_in_path_for(resource)}, status: 200 }
+    resource = User.find_by(email: params[:email])
+    if resource.valid_password?(params[:password])
+      sign_in(resource_name, resource)
+      render json: { message: 'success' }, status: 200
+    else
+      render json: { message: 'reject'}, status: 401
     end
   end
 
