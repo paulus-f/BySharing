@@ -13,10 +13,38 @@ module Api
         render json: find_bicycle.pluck(:id, :longitude, :latitude)
       end
 
+      def create
+        manufacturer = Manufacturer.find_by(name: params[:manufacturer])
+        if manufacturer.nil?
+          Manufacturer.new(name: manufacturer).save
+        end
+        params[:manufacturer] = manufacturer
+        @bicycle = Bicycle.new(bicycle_params)
+        if @bicycle.save
+          render json: { message: 'success'}, status: 200
+        else
+          render json: { message: 'error'}, status: 402
+        end
+      end
+
+      def destroy
+        @bicycle = find_bicycle
+        if @bicycle&.destroy
+          render json: { message: 'success'}, status: 200
+        else
+          render json: { message: 'error'}, status: 404
+        end
+      end
+
       private
 
       def find_all
         Bicycle.all
+      end
+
+      def bicycle_params
+        params.permit(:name, :price, :type, :longitude, :latitude,
+                      :manufacturer)
       end
 
       def find_bicycle
