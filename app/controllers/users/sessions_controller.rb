@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
       sign_in(resource_name, resource)
       render json: { message: 'success' }, status: 200
     else
-      render json: { message: 'reject'}, status: 401
+      render json: { message: 'reject' }, status: 401
     end
   end
 
