@@ -1,6 +1,6 @@
 class AddRent < ActiveRecord::Migration[5.2]
   def change
-    create_table :rent do |t|
+    create_table :rents do |t|
       t.integer :current_price
       t.datetime :start_date
       t.datetime :end_date
