@@ -10,16 +10,18 @@ module Api
       end
 
       def map
-        render json: find_bicycle.pluck(:id, :longitude, :latitude)
+        render json: find_all.pluck(:id, :longitude, :latitude)
       end
 
       def create
         manufacturer = Manufacturer.find_by(name: params[:manufacturer])
-        if manufacturer.nil?
-          Manufacturer.new(name: manufacturer).save
+        unless manufacturer
+          manufacturer = Manufacturer.new(name: params[:manufacturer])
+          manufacturer.save
         end
-        params[:manufacturer] = manufacturer
         @bicycle = Bicycle.new(bicycle_params)
+        @bicycle.manufacturer = manufacturer
+
         if @bicycle.save
           render json: { message: 'success'}, status: 200
         else
@@ -43,8 +45,7 @@ module Api
       end
 
       def bicycle_params
-        params.permit(:name, :price, :type, :longitude, :latitude,
-                      :manufacturer)
+        params.permit(:name, :price, :bike_type, :longitude, :latitude)
       end
 
       def find_bicycle

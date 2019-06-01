@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_151421) do
+ActiveRecord::Schema.define(version: 2019_06_01_214038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 2019_06_01_151421) do
   create_table "bicycles", force: :cascade do |t|
     t.string "name"
     t.integer "price"
-    t.string "type"
+    t.string "bike_type"
     t.decimal "longitude"
     t.decimal "latitude"
-    t.bigint "manufacture_id"
-    t.index ["manufacture_id"], name: "index_bicycles_on_manufacture_id"
+    t.bigint "manufacturer_id"
+    t.index ["manufacturer_id"], name: "index_bicycles_on_manufacturer_id"
   end
 
   create_table "jwt_blacklist", force: :cascade do |t|
