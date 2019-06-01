@@ -10,7 +10,7 @@ module Api
 
       def create
         params_rent = params.permit(:current_price, :start_date,
-                                    :end_date, :bike_id, :tenant_id)
+                                    :end_date, :bicycle_id, :tenant_id)
         if Rent.create!(params_rent)
           render json: params_rent, status: 200
         else

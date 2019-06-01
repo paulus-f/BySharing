@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root 'root#index'
   namespace :api do
     namespace :v1 do
-      resources :books do
+      resources :bicycles do
         resources :rents
         post 'unbook', to: 'rents#unbook'
         post 'unrent', to: 'rents#unrent'
