@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     resource = User.find_by(email: params[:email])
-    if resource.valid_password?(params[:password])
+    if resource&.valid_password?(params[:password])
       sign_in(resource_name, resource)
       render json: { message: 'success' }, status: 200
     else
