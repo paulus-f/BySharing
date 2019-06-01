@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :rents
         post 'unbook', to: 'rents#unbook'
         post 'unrent', to: 'rents#unrent'
+        post 'finish_rent', to: 'rents#finish_rent'
       end
       get '/index', to: 'home#index'
     end
