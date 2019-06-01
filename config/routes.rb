@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         post 'finish_rent', to: 'rents#finish_rent'
       end
       get '/index', to: 'home#index'
+      resources :bicycle
     end
   end
 
