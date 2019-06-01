@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         post 'unrent', to: 'rents#unrent'
       end
       get '/index', to: 'home#index'
+      resources :bicycle
     end
   end
 
