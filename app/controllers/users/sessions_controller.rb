@@ -4,7 +4,8 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    self.resource = warden.authenticate!(auth_options)
+    user_params = params.permit(:email, :password).to_h
+    self.resource = warden.authenticate!(user_params.merge!(scope: :user))
     set_flash_message(:notice, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     respond_with(resource) do |format|

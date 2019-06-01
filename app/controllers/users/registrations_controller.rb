@@ -5,7 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     user_params = params.permit(:email, :first_name, :last_name, :password, :password_confirmation).to_h
     build_resource(user_params)
-    resource.save
-    render_resource(resource)
+    if resource.save
+      render json: { message: 'success', status: 200 }
+    else
+      render json: { message: 'not valided', status: 401 }
+    end
   end
 end
