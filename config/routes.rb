@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :admin_users
+  ActiveAdmin.routes(self)
   devise_for :users,
   controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  
   root 'root#index'
   namespace :api do
     namespace :v1 do
@@ -19,5 +22,4 @@ Rails.application.routes.draw do
 
     end
   end
-
 end

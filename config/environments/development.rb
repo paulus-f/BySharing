@@ -8,6 +8,7 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+  config.assets.precompile += %w[active_admin.css active_admin.js]
 
   # Show full error reports.
   config.consider_all_requests_local = true
