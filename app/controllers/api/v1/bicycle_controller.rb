@@ -10,7 +10,7 @@ module Api
       end
 
       def map
-        render json: find_all.pluck(:id, :longitude, :latitude, :name)
+        render json: find_all.select(:id, :longitude, :latitude, :name)
       end
 
       def create
