@@ -2,7 +2,7 @@ module Api
   module V1
     class BicycleController < ApplicationController
       def show
-        render json: find_bicycle
+        render json: { bicycle: find_bicycle, rents: find_bicycle.rents }, status: 200
       end
 
       def index
@@ -10,6 +10,11 @@ module Api
       end
 
       def map
+        if params[:title]
+          return render json: find_all.where('title ILIKE ?', params[:title])
+                                      .select(:id, :longitude, :latitude, :name)
+        end
+
         render json: find_all.select(:id, :longitude, :latitude, :name)
       end
 
@@ -17,7 +22,7 @@ module Api
         manufacturer = Manufacturer.find_by(name: params[:manufacturer])
         unless manufacturer
           manufacturer = Manufacturer.new(name: params[:manufacturer])
-          manufacturer.save
+          manufaScturer.save
         end
         @bicycle = Bicycle.new(bicycle_params)
         @bicycle.manufacturer = manufacturer
